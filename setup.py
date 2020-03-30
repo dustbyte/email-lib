@@ -21,6 +21,7 @@ setup(
     url="https://github.com/mota/email-lib",
     install_requires=get_requirements(),
     packages=find_packages(),
+    license='MIT',
 
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
