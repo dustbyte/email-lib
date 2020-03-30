@@ -9,7 +9,7 @@ def get_requirements():
 
 setup(
     name="email-lib",
-    version="0.1.0",
+    version="0.1.1",
     author="Pierre Wacrenier",
     author_email="pierre@wacrenier.me",
     description="Simplify email organization",

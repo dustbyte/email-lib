@@ -4,7 +4,7 @@ Work on hashtags
 
 import re
 
-HASHTAG_PATTERN=re.compile(r'(^|\s)#(\w+\b)')
+HASHTAG_PATTERN=re.compile(r'(^|\s)#([^\d]\w+\b)')
 
 
 def extract_hashtags(content):
