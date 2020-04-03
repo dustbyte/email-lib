@@ -347,7 +347,7 @@ class EmailMessage:
         """
         self.message = message
 
-        self.subject = message['Subject']
+        self.subject = message['Subject'].replace('\r\n', '')
         self.topic = self.subject.replace('Re: ', '')
         self.from_addr = message['From']
         self.to_addrs = [addr.strip() for addr in message['To'].split(',')]

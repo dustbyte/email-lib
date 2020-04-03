@@ -224,6 +224,26 @@ def test_query_builder():
     assert query == '(SINCE 02-Jan-2020) (BEFORE 01-Feb-2020) (SUBJECT "Builder Test")'
 
 
+def test_email_message_long_subject():
+    raw_message = RawMessage({
+        'Subject': 'This is an email with a very\r\n long subject',
+        'From': 'test_email@server.com',
+        'To': 'test_receiver@server.com, second_receiver@server.com',
+        'Message-Id': '<42@>',
+        'References': '',
+        'Date': 'Sun, 02 Feb 2020 15:12:03 +0000 (UTC)',
+        'Payload': [
+                Part('text/html', '<html><body>Content 1</body></html>'),
+                Part('text/plain', 'Content 2'),
+                Part('image/png', 'image.png'),
+        ]
+    })
+
+    message = EmailMessage(raw_message)
+
+    assert message.subject == 'This is an email with a very long subject'
+
+
 def test_email_reply():
     raw_message = RawMessage({
         'Subject': 'Re: Test Subject',
@@ -325,6 +345,24 @@ def test_email_thread_add_first():
 
     for message in thread:
         assert message.message_id == '<42@>'
+
+
+def test_email_thread_long_subject():
+    thread = EmailThread()
+
+    head_message = EmailMessage({
+        'Subject': 'This is an email with a very\r\n long subject',
+        'From': 'test_email@server.com',
+        'To': 'test_receiver@server.com, second_receiver@server.com',
+        'Message-Id': '<42@>',
+        'References': [],
+        'Date': 'Sun, 02 Feb 2020 15:12:03 +0000 (UTC)'
+    })
+
+    thread.add(head_message)
+
+    assert thread.first.subject == 'This is an email with a very long subject'
+    assert thread.first.topic == 'This is an email with a very long subject'
 
 
 def test_email_thread_has():
