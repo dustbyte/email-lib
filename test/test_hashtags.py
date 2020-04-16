@@ -7,6 +7,6 @@ def test_extract_hashtags():
     assert result == ['this', 'matches', 'tags']
 
 
-    result = extract_hashtags('#one #two')
+    result = extract_hashtags('#one #two # three')
 
     assert result == ['one', 'two']
